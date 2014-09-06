@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Using Charts.js</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="wrapper">
+  <div class='heap-chart'>
+    <canvas id='heap-chart' width='750' height='300'></canvas>
+  </div>
+  <div class='gc-chart'>
+    <canvas id='gc-chart' width='750' height='100'></canvas>
+  </div>
+  <div class='generation-charts'>
+    <canvas id='generation-one' width='250' height='250'></canvas>
+    <canvas id='generation-two' width='250' height='250'></canvas>
+    <canvas id='generation-three' width='250' height='250'></canvas>
+  </div>
+  <script src='chart.js'></script>
+  <script src='underscore.js'></script>
+  <script src='app.js'></script>
+</div>
+</body>
+</html>
