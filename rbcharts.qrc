@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/rbcharts">
+        <file>index.qt.html</file>
+
+        <file>lib/chart.js</file>
+        <file>lib/underscore.js</file>
+
+        <file>src/app.js</file>
+        <file>src/styles.css</file>
+    </qresource>
+</RCC>
