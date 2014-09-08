@@ -85,6 +85,8 @@ var Rbkit = {
       }
     }
 
+    chart.updateScaleRange(chart.segments);
+    chart.scale.update();
     chart.update();
   },
 
