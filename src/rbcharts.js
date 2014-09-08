@@ -51,43 +51,36 @@ var Rbkit = {
   updateGcChart: function (gcStarted, timestamp) {
   },
 
-  // function to update polar chart
-  updateYoungGenerationChart: function (newData) {
+  // helper function to update a particular polar chart
+  updatePolarChart: function(chart, newData) {
     var iter = 0;
     for (var key in newData) {
       if (newData.hasOwnProperty(key)) {
-        segment = this.youngGenerationChart.segments[iter];
+        segment = chart.segments[iter];
         if (segment === undefined) {
-          this.youngGenerationChart.addData({ value: newData[key], label: key });
+          chart.addData({ value: newData[key], label: key });
         } else {
-          this.youngGenerationChart.segments[iter].value = newData[key];
-          this.youngGenerationChart.segments[iter].label = key;
+          chart.segments[iter].value = newData[key];
+          chart.segments[iter].label = key;
         }
         ++iter;
       }
     }
 
-    this.youngGenerationChart.update();
+    chart.update();
   },
 
-  updateSecondGenerationChart: function (newData, timestamp) {
-    secondGenerationChart.addData(newData, timestamp);
-
-    if (10 > secondGenerationChart.datasets.length) {
-      secondGenerationChart.removeData();
-    }
-
-    secondGenerationChart.update();
+  // function to update polar chart
+  updateYoungGenerationChart: function (newData) {
+    this.updatePolarChart(this.youngGenerationChart, newData);
   },
 
-  updateOldGenerationChart: function (newData, timestamp) {
-    oldGenerationChart.addData(newData, timestamp);
+  updateSecondGenerationChart: function (newData) {
+    this.updatePolarChart(this.secondGenerationChart, newData);
+  },
 
-    if (10 > oldGenerationChart.datasets.length) {
-      oldGenerationChart.removeData();
-    }
-
-    oldGenerationChart.update();
+  updateOldGenerationChart: function (newData) {
+    this.updatePolarChart(this.oldGenerationChart, newData);
   },
 
   init: function () {
