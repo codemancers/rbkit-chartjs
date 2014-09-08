@@ -8,7 +8,7 @@ var polarRandomData = function () {
 };
 
 var polarGenerationCharts = function () {
-  setTimeout(polarGenerationCharts, 1000);
+  setTimeout(polarGenerationCharts, 5000);
 
   Rbkit.updateYoungGenerationChart(polarRandomData());
   Rbkit.updateSecondGenerationChart(polarRandomData());

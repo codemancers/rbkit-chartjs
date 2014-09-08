@@ -51,6 +51,23 @@ var Rbkit = {
   updateGcChart: function (gcStarted, timestamp) {
   },
 
+  // set of polar colors which can be used
+  polarChartDefaultColors: [
+    // https://kuler.adobe.com/create/color-wheel/?base=2&rule=Analogous&selected=0&name=My%20Kuler%20Theme&mode=rgb&rgbvalues=1,0.8061476456696997,0.21226577883757825,0.91,0.3792784756568747,0.006674395779380451,1,0.05733450085646208,0.07395439645749258,0.6885308876037232,0.006674395779380451,0.91,0.007334500856462034,0.032410134950262015,1&swatchOrder=0,1,2,3,4
+    "#FFCE36",
+    "#E86102",
+    "#FF0F13",
+    "#B002E8",
+    "#0208FF",
+
+    // https://kuler.adobe.com/create/color-wheel/?base=2&rule=Analogous&selected=0&name=My%20Kuler%20Theme&mode=rgb&rgbvalues=0.04807254964605545,0.3841648710813974,1,0.026435686294499838,0.91,0.9023077127342737,0.07905020471923063,1,0.34320423970430325,0.48126239660538095,0.91,0.026435686294499838,1,0.8956645395163697,0.057458175950780066&swatchOrder=0,1,2,3,4
+    "#0C62FF",
+    "#07E8E6",
+    "#14FF58",
+    "#7BE807",
+    "#FFE40F"
+  ],
+
   // helper function to update a particular polar chart
   updatePolarChart: function(chart, newData) {
     var iter = 0;
@@ -58,7 +75,8 @@ var Rbkit = {
       if (newData.hasOwnProperty(key)) {
         segment = chart.segments[iter];
         if (segment === undefined) {
-          chart.addData({ value: newData[key], label: key });
+          color = this.polarChartDefaultColors[iter];
+          chart.addData({ value: newData[key], label: key, color: color, highlight: color });
         } else {
           chart.segments[iter].value = newData[key];
           chart.segments[iter].label = key;
