@@ -1,1 +1,1 @@
-RESOURCES += $$PWD/web.qrc
+RESOURCES += $$PWD/rbcharts.qrc

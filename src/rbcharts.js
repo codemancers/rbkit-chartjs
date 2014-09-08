@@ -117,6 +117,13 @@ var Rbkit = {
     this.youngGenerationChart  = new Chart(this.youngGenerationCtx).PolarArea(this.youngGenerationData);
     this.secondGenerationChart = new Chart(this.secondGenerationCtx).PolarArea(this.secondGenerationData);
     this.oldGenerationChart    = new Chart(this.oldGenerationCtx).PolarArea(this.oldGenerationData);
+  },
+
+  receiveLiveData: function(data) {
+    switch (data.event_type) {
+    case "object_stats":
+      this.updateYoungGenerationChart(data.payload);
+    }
   }
 };
 
