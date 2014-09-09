@@ -3,8 +3,29 @@
 var Rbkit = {
   // heap data which will be displayed as line chart
   heapData: {
-    datasets: [],
-    labels: []
+    labels: ['0s'],
+    datasets: [
+        {
+            label: 'Heap Objects',
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [0]
+        },
+        {
+            label: 'Heap Size',
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [0]
+        }
+    ]
   },
 
   // gc data, which will be used in populating in gc graph
@@ -101,6 +122,17 @@ var Rbkit = {
     chart.update();
   },
 
+  updateLineChart: function(chart, newData) {
+    var date = new Date();
+    var timeStamp = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    var values = [newData['Heap Objects'], newData['Heap Size']];
+    chart.addData(values, timeStamp);
+    if (chart.datasets[0].points.length > 10) {
+      chart.removeData();
+    }
+    chart.render();
+  },
+
   // function to update polar chart
   updateYoungGenerationChart: function (newData) {
     this.updatePolarChart(this.youngGenerationChart, newData);
@@ -139,11 +171,16 @@ var Rbkit = {
     }
   },
 
+  updateHeapChart: function (newData) {
+    this.updateLineChart(this.heapDataChart, newData);
+  },
+
   init: function () {
     // instantiate contexts
     this.heapDataCtx         = document.getElementById('heap-chart').getContext('2d');
 
-    // this.heapDataChart         = new Chart(this.heapDataCtx).Line(this.heapData);
+    // charts for heap data
+    this.heapDataChart         = new Chart(this.heapDataCtx).Line(this.heapData);
 
     // charts for gc stats.
     var gcChartOptions = { showTooltips: false };
@@ -172,6 +209,8 @@ var Rbkit = {
     switch (data.event_type) {
     case "object_stats":
       this.updateYoungGenerationChart(data.payload);
+    case "event_collection":
+      this.updateHeapChart(data.payload);
     }
   }
 };
