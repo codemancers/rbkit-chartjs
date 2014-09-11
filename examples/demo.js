@@ -1,3 +1,21 @@
+// =============================== code for gc charts ==============================
+// assuming max gc time is 10s
+
+var gcChartStart = function () {
+  setTimeout(gcChartEnd, _.random(0, 10) * 1000);
+
+  Rbkit.gcStarted(new Date());
+};
+
+var gcChartEnd = function () {
+  setTimeout(gcChartStart, 5000);
+
+  Rbkit.gcEnded(new Date());
+};
+
+
+gcChartStart();
+
 // ==================== code for randomly updating polar charts ====================
 var polarRandomDataIter = 0;
 var polarRandomData = function () {

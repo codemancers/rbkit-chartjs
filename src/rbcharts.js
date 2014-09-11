@@ -9,8 +9,8 @@ var Rbkit = {
 
   // gc data, which will be used in populating in gc graph
   gcData: {
-    datasets: [],
-    labels: []
+    datasets: [{label: 'GC Data', data: [0]}],
+    labels: [0]
   },
 
   // chart canvas contexts, maybe we can remove these
@@ -27,6 +27,10 @@ var Rbkit = {
   secondGenerationChart : undefined,
   oldGenerationChart    : undefined,
 
+  // gc timings
+  gcStartTime : undefined,
+  gcCounter   : 0,
+
   // function to update heap chart.
   updateHeapChart : function (newData, timestamp) {
     heapDataChart.addData(newData, timestamp);
@@ -40,6 +44,22 @@ var Rbkit = {
 
   // function to update gc graph
   updateGcChart: function (gcStarted, timestamp) {
+  },
+
+  // function to record gc start time
+  gcStarted: function (timestamp) {
+    this.gcStartTime = timestamp;
+  },
+
+  // function to record gc end time
+  gcEnded: function (timestamp) {
+    var gcDurationInSec = parseFloat(timestamp - this.gcStartTime)/1000;
+
+    this.gcChart.addData([gcDurationInSec], ++this.gcCounter);
+    if (this.gcChart.datasets[0].bars.length > 10) {
+      this.gcChart.removeData();
+    }
+    this.gcChart.update();
   },
 
   // set of polar colors which can be used
@@ -103,7 +123,8 @@ var Rbkit = {
     // charts for gc stats.
     var gcChartOptions = { showTooltips: false };
     this.gcCtx    = document.getElementById('gc-chart').getContext('2d');
-    this.gcChart  = new Chart(this.gcCtx).Line(this.gcData, gcChartOptions);
+    this.gcChart  = new Chart(this.gcCtx)
+      .Bar(this.gcData, gcChartOptions);
 
     // charts for generations
     this.youngGenerationCtx  = document
