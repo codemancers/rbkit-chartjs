@@ -107,16 +107,26 @@ var Rbkit = {
     // instantiate contexts
     this.heapDataCtx         = document.getElementById('heap-chart').getContext('2d');
     this.gcCtx               = document.getElementById('gc-chart').getContext('2d');
-    this.youngGenerationCtx  = document.getElementById('generation-one').getContext('2d');
-    this.secondGenerationCtx = document.getElementById('generation-two').getContext('2d');
-    this.oldGenerationCtx    = document.getElementById('generation-three').getContext('2d');
 
     // create charts
     // this.heapDataChart         = new Chart(this.heapDataCtx).Line(this.heapData);
-    this.gcChart               = new Chart(this.gcCtx).Bar(this.gcData);
-    this.youngGenerationChart  = new Chart(this.youngGenerationCtx).PolarArea(this.youngGenerationData);
-    this.secondGenerationChart = new Chart(this.secondGenerationCtx).PolarArea(this.secondGenerationData);
-    this.oldGenerationChart    = new Chart(this.oldGenerationCtx).PolarArea(this.oldGenerationData);
+    this.gcChart               = new Chart(this.gcCtx).Line(this.gcData);
+
+    // charts for versions
+    this.youngGenerationCtx  = document
+      .getElementById('generation-one').getContext('2d');
+    this.secondGenerationCtx = document
+      .getElementById('generation-two').getContext('2d');
+    this.oldGenerationCtx    = document
+      .getElementById('generation-three').getContext('2d');
+
+    var polarChartOptions = { showTooltips: false };
+    this.youngGenerationChart  = new Chart(this.youngGenerationCtx)
+      .PolarArea(this.youngGenerationData, polarChartOptions);
+    this.secondGenerationChart = new Chart(this.secondGenerationCtx)
+      .PolarArea(this.secondGenerationData, polarChartOptions);
+    this.oldGenerationChart    = new Chart(this.oldGenerationCtx)
+      .PolarArea(this.oldGenerationData, polarChartOptions);
   },
 
   receiveLiveData: function(data) {

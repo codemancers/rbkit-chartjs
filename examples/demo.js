@@ -1,3 +1,4 @@
+// ==================== code for randomly updating polar charts ====================
 var polarRandomDataIter = 0;
 var polarRandomData = function () {
   var randomLimit = (polarRandomDataIter++ % 2 == 0) ? 200 : 100;
