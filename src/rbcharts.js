@@ -13,16 +13,7 @@ var Rbkit = {
     labels: []
   },
 
-  // polar graph data for young generation
-  youngGenerationData: [],
-
-  // ploar graph data for 2nd generation
-  secondGenerationData: [],
-
-  // polar graph data for old generation
-  oldGenerationData: [],
-
-  // chart canvas contexts
+  // chart canvas contexts, maybe we can remove these
   heapDataCtx         : undefined,
   gcCtx               : undefined,
   youngGenerationCtx  : undefined,
@@ -106,13 +97,15 @@ var Rbkit = {
   init: function () {
     // instantiate contexts
     this.heapDataCtx         = document.getElementById('heap-chart').getContext('2d');
-    this.gcCtx               = document.getElementById('gc-chart').getContext('2d');
 
-    // create charts
     // this.heapDataChart         = new Chart(this.heapDataCtx).Line(this.heapData);
-    this.gcChart               = new Chart(this.gcCtx).Line(this.gcData);
 
-    // charts for versions
+    // charts for gc stats.
+    var gcChartOptions = { showTooltips: false };
+    this.gcCtx    = document.getElementById('gc-chart').getContext('2d');
+    this.gcChart  = new Chart(this.gcCtx).Line(this.gcData, gcChartOptions);
+
+    // charts for generations
     this.youngGenerationCtx  = document
       .getElementById('generation-one').getContext('2d');
     this.secondGenerationCtx = document
@@ -122,11 +115,11 @@ var Rbkit = {
 
     var polarChartOptions = { showTooltips: false };
     this.youngGenerationChart  = new Chart(this.youngGenerationCtx)
-      .PolarArea(this.youngGenerationData, polarChartOptions);
+      .PolarArea([], polarChartOptions);
     this.secondGenerationChart = new Chart(this.secondGenerationCtx)
-      .PolarArea(this.secondGenerationData, polarChartOptions);
+      .PolarArea([], polarChartOptions);
     this.oldGenerationChart    = new Chart(this.oldGenerationCtx)
-      .PolarArea(this.oldGenerationData, polarChartOptions);
+      .PolarArea([], polarChartOptions);
   },
 
   receiveLiveData: function(data) {
