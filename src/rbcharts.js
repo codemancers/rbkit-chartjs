@@ -175,11 +175,11 @@ var Rbkit = {
   },
 
   init: function () {
-    // instantiate contexts
-    this.heapDataCtx         = document.getElementById('heap-chart').getContext('2d');
-
     // charts for heap data
-    this.heapDataChart         = new Chart(this.heapDataCtx).Line(this.heapData);
+    var heapChartOptions = { showTooltips: false };
+    this.heapDataCtx   = document.getElementById('heap-chart').getContext('2d');
+    this.heapDataChart = new Chart(this.heapDataCtx)
+      .Line(this.heapData, heapChartOptions);
 
     // charts for gc stats.
     var gcChartOptions = { showTooltips: false };
