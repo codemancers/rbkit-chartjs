@@ -9,20 +9,11 @@ var Rbkit = {
 
   // gc data, which will be used in populating in gc graph
   gcData: {
-    datasets: [],
-    labels: []
+    datasets: [{label: 'GC Data', data: [0]}],
+    labels: [0]
   },
 
-  // polar graph data for young generation
-  youngGenerationData: [],
-
-  // ploar graph data for 2nd generation
-  secondGenerationData: [],
-
-  // polar graph data for old generation
-  oldGenerationData: [],
-
-  // chart canvas contexts
+  // chart canvas contexts, maybe we can remove these
   heapDataCtx         : undefined,
   gcCtx               : undefined,
   youngGenerationCtx  : undefined,
@@ -35,6 +26,10 @@ var Rbkit = {
   youngGenerationChart  : undefined,
   secondGenerationChart : undefined,
   oldGenerationChart    : undefined,
+
+  // gc timings
+  gcStartTime : undefined,
+  gcCounter   : 0,
 
   // function to update heap chart.
   updateHeapChart : function (newData, timestamp) {
@@ -49,6 +44,22 @@ var Rbkit = {
 
   // function to update gc graph
   updateGcChart: function (gcStarted, timestamp) {
+  },
+
+  // function to record gc start time
+  gcStarted: function (timestamp) {
+    this.gcStartTime = timestamp;
+  },
+
+  // function to record gc end time
+  gcEnded: function (timestamp) {
+    var gcDurationInSec = parseFloat(timestamp - this.gcStartTime)/1000;
+
+    this.gcChart.addData([gcDurationInSec], ++this.gcCounter);
+    if (this.gcChart.datasets[0].bars.length > 10) {
+      this.gcChart.removeData();
+    }
+    this.gcChart.update();
   },
 
   // set of polar colors which can be used
@@ -106,17 +117,30 @@ var Rbkit = {
   init: function () {
     // instantiate contexts
     this.heapDataCtx         = document.getElementById('heap-chart').getContext('2d');
-    this.gcCtx               = document.getElementById('gc-chart').getContext('2d');
-    this.youngGenerationCtx  = document.getElementById('generation-one').getContext('2d');
-    this.secondGenerationCtx = document.getElementById('generation-two').getContext('2d');
-    this.oldGenerationCtx    = document.getElementById('generation-three').getContext('2d');
 
-    // create charts
     // this.heapDataChart         = new Chart(this.heapDataCtx).Line(this.heapData);
-    this.gcChart               = new Chart(this.gcCtx).Bar(this.gcData);
-    this.youngGenerationChart  = new Chart(this.youngGenerationCtx).PolarArea(this.youngGenerationData);
-    this.secondGenerationChart = new Chart(this.secondGenerationCtx).PolarArea(this.secondGenerationData);
-    this.oldGenerationChart    = new Chart(this.oldGenerationCtx).PolarArea(this.oldGenerationData);
+
+    // charts for gc stats.
+    var gcChartOptions = { showTooltips: false };
+    this.gcCtx    = document.getElementById('gc-chart').getContext('2d');
+    this.gcChart  = new Chart(this.gcCtx)
+      .Bar(this.gcData, gcChartOptions);
+
+    // charts for generations
+    this.youngGenerationCtx  = document
+      .getElementById('generation-one').getContext('2d');
+    this.secondGenerationCtx = document
+      .getElementById('generation-two').getContext('2d');
+    this.oldGenerationCtx    = document
+      .getElementById('generation-three').getContext('2d');
+
+    var polarChartOptions = { showTooltips: false };
+    this.youngGenerationChart  = new Chart(this.youngGenerationCtx)
+      .PolarArea([], polarChartOptions);
+    this.secondGenerationChart = new Chart(this.secondGenerationCtx)
+      .PolarArea([], polarChartOptions);
+    this.oldGenerationChart    = new Chart(this.oldGenerationCtx)
+      .PolarArea([], polarChartOptions);
   },
 
   receiveLiveData: function(data) {

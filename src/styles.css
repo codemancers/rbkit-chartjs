@@ -1,7 +1,12 @@
-#wrapper { width: 800px; }
-.heap-chart { float: left; }
-.generation-charts {
+#wrapper {
+  width: 800px;
+}
+
+.heap-chart, .gc-chart, .generation-charts {
+  margin: 20px 0px;
   float: left;
 }
 
-.generation-charts canvas { display: inline-block; }
+.generation-charts canvas {
+  display: inline-block;
+}
