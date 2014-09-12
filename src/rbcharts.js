@@ -52,17 +52,6 @@ var Rbkit = {
   gcStartTime : undefined,
   gcCounter   : 0,
 
-  // function to update heap chart.
-  updateHeapChart : function (newData, timestamp) {
-    heapDataChart.addData(newData, timestamp);
-
-    if (10 > heapDataChart.datasets.length) {
-      heapDataChart.removeData();
-    }
-
-    heapDataChart.update();
-  },
-
   // function to update gc graph
   updateGcChart: function (gcStarted, timestamp) {
   },
