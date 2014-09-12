@@ -122,17 +122,6 @@ var Rbkit = {
     chart.update();
   },
 
-  updateLineChart: function(chart, newData) {
-    var date = new Date();
-    var timeStamp = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-    var values = [newData['Heap Objects'], newData['Heap Size']];
-    chart.addData(values, timeStamp);
-    if (chart.datasets[0].points.length > 10) {
-      chart.removeData();
-    }
-    chart.render();
-  },
-
   // function to update polar chart
   updateYoungGenerationChart: function (newData) {
     this.updatePolarChart(this.youngGenerationChart, newData);
@@ -172,7 +161,17 @@ var Rbkit = {
   },
 
   updateHeapChart: function (newData) {
-    this.updateLineChart(this.heapDataChart, newData);
+    var date = new Date();
+    var timeStamp = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+
+    var values = [newData['Heap Objects'], newData['Heap Size']];
+    this.heapDataChart.addData(values, timeStamp);
+
+    if (this.heapDataChart.datasets[0].points.length > 10) {
+      this.heapDataChart.removeData();
+    }
+
+    this.heapDataChart.render();
   },
 
   init: function () {
