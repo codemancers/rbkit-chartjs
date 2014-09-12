@@ -3,7 +3,7 @@
 var Rbkit = {
   // heap data which will be displayed as line chart
   heapData: {
-    labels: ['0s'],
+    labels: ['-', '-'],
     datasets: [
         {
             label: 'Heap Objects',
@@ -13,7 +13,7 @@ var Rbkit = {
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [0]
+            data: [0, 0]
         },
         {
             label: 'Heap Size',
@@ -23,7 +23,7 @@ var Rbkit = {
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [0]
+            data: [0, 0]
         }
     ]
   },
