@@ -114,6 +114,31 @@ var Rbkit = {
     this.updatePolarChart(this.oldGenerationChart, newData);
   },
 
+  updateGcStats: function (gcStats) {
+    for (var key in gcStats) {
+      if (gcStats.hasOwnProperty(key)) {
+        entry = document.getElementById(key);
+        if (entry) {
+          entry.textContent = gcStats[key];
+        } else {
+          var trNode = document.createElement('tr');
+          var tdKey = document.createElement('td');
+          tdKey.textContent = key;
+          var tdVal = document.createElement('td');
+          tdVal.id = key;
+          tdVal.textContent = gcStats[key];
+          trNode.appendChild(tdKey);
+          trNode.appendChild(tdVal);
+
+          // append created node to table
+          document.getElementById('gc-stats-table')
+            .firstElementChild
+            .appendChild(trNode);
+        }
+      }
+    }
+  },
+
   init: function () {
     // instantiate contexts
     this.heapDataCtx         = document.getElementById('heap-chart').getContext('2d');
