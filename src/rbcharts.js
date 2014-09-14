@@ -165,13 +165,13 @@ var Rbkit = {
 
   init: function () {
     // charts for heap data
-    var heapChartOptions = { showTooltips: false };
+    var heapChartOptions = { showTooltips: false, animation: false };
     this.heapDataCtx   = document.getElementById('heap-chart').getContext('2d');
     this.heapDataChart = new Chart(this.heapDataCtx)
       .Line(this.heapData, heapChartOptions);
 
     // charts for gc stats.
-    var gcChartOptions = { showTooltips: false };
+    var gcChartOptions = { showTooltips: false, animation: false };
     this.gcCtx    = document.getElementById('gc-chart').getContext('2d');
     this.gcChart  = new Chart(this.gcCtx)
       .Bar(this.gcData, gcChartOptions);
@@ -184,7 +184,7 @@ var Rbkit = {
     this.oldGenerationCtx    = document
       .getElementById('generation-three').getContext('2d');
 
-    var polarChartOptions = { showTooltips: false };
+    var polarChartOptions = { showTooltips: false, animation: false };
     this.youngGenerationChart  = new Chart(this.youngGenerationCtx)
       .PolarArea([], polarChartOptions);
     this.secondGenerationChart = new Chart(this.secondGenerationCtx)
