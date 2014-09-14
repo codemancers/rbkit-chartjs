@@ -3,8 +3,29 @@
 var Rbkit = {
   // heap data which will be displayed as line chart
   heapData: {
-    datasets: [],
-    labels: []
+    labels: ['-', '-'],
+    datasets: [
+        {
+            label: 'Heap Objects',
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [0, 0]
+        },
+        {
+            label: 'Heap Size',
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [0, 0]
+        }
+    ]
   },
 
   // gc data, which will be used in populating in gc graph
@@ -30,17 +51,6 @@ var Rbkit = {
   // gc timings
   gcStartTime : undefined,
   gcCounter   : 0,
-
-  // function to update heap chart.
-  updateHeapChart : function (newData, timestamp) {
-    heapDataChart.addData(newData, timestamp);
-
-    if (10 > heapDataChart.datasets.length) {
-      heapDataChart.removeData();
-    }
-
-    heapDataChart.update();
-  },
 
   // function to update gc graph
   updateGcChart: function (gcStarted, timestamp) {
@@ -139,11 +149,26 @@ var Rbkit = {
     }
   },
 
-  init: function () {
-    // instantiate contexts
-    this.heapDataCtx         = document.getElementById('heap-chart').getContext('2d');
+  updateHeapChart: function (newData) {
+    var date = new Date();
+    var timeStamp = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 
-    // this.heapDataChart         = new Chart(this.heapDataCtx).Line(this.heapData);
+    var values = [newData['Heap Objects'], newData['Heap Size']];
+    this.heapDataChart.addData(values, timeStamp);
+
+    if (this.heapDataChart.datasets[0].points.length > 10) {
+      this.heapDataChart.removeData();
+    }
+
+    this.heapDataChart.render();
+  },
+
+  init: function () {
+    // charts for heap data
+    var heapChartOptions = { showTooltips: false };
+    this.heapDataCtx   = document.getElementById('heap-chart').getContext('2d');
+    this.heapDataChart = new Chart(this.heapDataCtx)
+      .Line(this.heapData, heapChartOptions);
 
     // charts for gc stats.
     var gcChartOptions = { showTooltips: false };
@@ -172,6 +197,8 @@ var Rbkit = {
     switch (data.event_type) {
     case "object_stats":
       this.updateYoungGenerationChart(data.payload);
+    case "event_collection":
+      this.updateHeapChart(data.payload);
     }
   }
 };

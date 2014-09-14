@@ -1,3 +1,21 @@
+// ============================== code for heap charts =============================
+
+var heapRandomData = function () {
+  return {
+    'Heap Objects': _.random(0, 200),
+    'Heap Size':    _.random(0, 200)
+  };
+};
+
+var heapCharts = function() {
+  setTimeout(heapCharts, 1000);
+
+  Rbkit.updateHeapChart(heapRandomData());
+};
+
+heapCharts();
+
+
 // =============================== code for gc charts ==============================
 // assuming max gc time is 10s
 
