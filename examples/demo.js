@@ -57,7 +57,7 @@ var polarGenerationCharts = function () {
   Rbkit.updateOldGenerationChart(polarRandomData());
 };
 
-polarGenerationCharts();
+// polarGenerationCharts();
 
 // ====================== code for randomly updating gc stats ======================
 
