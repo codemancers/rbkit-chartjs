@@ -173,10 +173,9 @@ var Rbkit = {
   },
 
   updateLiveObjectsChart: function (newData) {
-    var date = new Date();
-    var timeStamp = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    var timeStamp = this.getTimeStamp();
 
-    var values = [newData['Heap Objects']];
+    var values = [newData['Heap Objects'].toFixed(2)];
     this.liveObjectsChart.addData(values, timeStamp);
 
     if (this.liveObjectsChart.datasets[0].points.length > 10) {
@@ -186,11 +185,22 @@ var Rbkit = {
     this.liveObjectsChart.render();
   },
 
-  updateHeapChart: function (newData) {
-    var date = new Date();
-    var timeStamp = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+  getTimeStamp: function() {
+    var date = new Date(),
+        minutes = date.getMinutes(),
+        seconds = date.getSeconds();
 
-    var values = [newData['Heap Size'], newData['Mem Size']];
+    var timeStamp = (minutes < 10 ? '0' + minutes : minutes ) +
+                    ':' +
+                    (seconds < 10 ? '0' + seconds : seconds );
+
+    return timeStamp;
+  },
+
+  updateHeapChart: function (newData) {
+    timeStamp = this.getTimeStamp();
+
+    var values = [newData['Heap Size'].toFixed(2), newData['Mem Size'].toFixed(2)];
     this.heapDataChart.addData(values, timeStamp);
 
     if (this.heapDataChart.datasets[0].points.length > 10) {
