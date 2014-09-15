@@ -58,14 +58,6 @@ var Rbkit = {
     'total_allocated_object', 'total_freed_object'
   ],
 
-  // chart canvas contexts, maybe we can remove these
-  liveObjectsCtx      : undefined,
-  heapDataCtx         : undefined,
-  gcCtx               : undefined,
-  youngGenerationCtx  : undefined,
-  secondGenerationCtx : undefined,
-  oldGenerationCtx    : undefined,
-
   // actual charts
   liveObjectsChart      : undefined,
   heapDataChart         : undefined,
@@ -226,39 +218,38 @@ var Rbkit = {
     // charts for live objects data
     var liveObjectsOptions = { animation: false };
     var liveObjectsCanvas = document.getElementById('live-objects-chart');
-    this.liveObjectsCtx   = liveObjectsCanvas.getContext('2d');
-    this.liveObjectsChart = new Chart(this.liveObjectsCtx)
+    var liveObjectsCtx    = liveObjectsCanvas.getContext('2d');
+    this.liveObjectsChart = new Chart(liveObjectsCtx)
       .Line(this.liveObjectsData, liveObjectsOptions);
     this.insertLegend(this.liveObjectsChart, liveObjectsCanvas);
 
     // charts for heap data
     var heapChartOptions = { animation: false };
     var heapDataCanvas = document.getElementById('heap-chart');
-    this.heapDataCtx   = heapDataCanvas.getContext('2d');
-    this.heapDataChart = new Chart(this.heapDataCtx)
+    var heapDataCtx    = heapDataCanvas.getContext('2d');
+    this.heapDataChart = new Chart(heapDataCtx)
       .Line(this.heapData, heapChartOptions);
     this.insertLegend(this.heapDataChart, heapDataCanvas);
 
     // charts for gc stats.
     var gcChartOptions = { animation: false };
-    this.gcCtx    = document.getElementById('gc-chart').getContext('2d');
-    this.gcChart  = new Chart(this.gcCtx)
-      .Bar(this.gcData, gcChartOptions);
+    var gcCtx     = document.getElementById('gc-chart').getContext('2d');
+    this.gcChart  = new Chart(gcCtx).Bar(this.gcData, gcChartOptions);
 
     // charts for generations
-    this.youngGenerationCtx  = document
+    var youngGenerationCtx  = document
       .getElementById('generation-one').getContext('2d');
-    this.secondGenerationCtx = document
+    var secondGenerationCtx = document
       .getElementById('generation-two').getContext('2d');
-    this.oldGenerationCtx    = document
+    var oldGenerationCtx    = document
       .getElementById('generation-three').getContext('2d');
 
     var polarChartOptions = { animation: false };
-    this.youngGenerationChart  = new Chart(this.youngGenerationCtx)
+    this.youngGenerationChart  = new Chart(youngGenerationCtx)
       .PolarArea([], polarChartOptions);
-    this.secondGenerationChart = new Chart(this.secondGenerationCtx)
+    this.secondGenerationChart = new Chart(secondGenerationCtx)
       .PolarArea([], polarChartOptions);
-    this.oldGenerationChart    = new Chart(this.oldGenerationCtx)
+    this.oldGenerationChart    = new Chart(oldGenerationCtx)
       .PolarArea([], polarChartOptions);
   },
 

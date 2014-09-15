@@ -50,5 +50,6 @@
   width: 12px;
   margin: auto 5px;
   box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 1px solid #666;
+  border-radius: 2px;
 }
