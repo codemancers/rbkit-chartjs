@@ -187,8 +187,13 @@ var Rbkit = {
   },
 
   updateHeapChart: function (newData) {
-    var date = new Date();
-    var timeStamp = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    var date = new Date(),
+        minutes = date.getMinutes(),
+        seconds = date.getSeconds();
+
+    var timeStamp = (minutes < 10 ? '0' + minutes : minutes ) +
+                    ':' +
+                    (seconds < 10 ? '0' + seconds : seconds );
 
     var values = [newData['Heap Size'], newData['Mem Size']];
     this.heapDataChart.addData(values, timeStamp);
