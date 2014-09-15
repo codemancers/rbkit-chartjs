@@ -175,7 +175,7 @@ var Rbkit = {
   updateLiveObjectsChart: function (newData) {
     var timeStamp = this.getTimeStamp();
 
-    var values = [newData['Heap Objects']];
+    var values = [newData['Heap Objects'].toFixed(2)];
     this.liveObjectsChart.addData(values, timeStamp);
 
     if (this.liveObjectsChart.datasets[0].points.length > 10) {
@@ -200,7 +200,7 @@ var Rbkit = {
   updateHeapChart: function (newData) {
     timeStamp = this.getTimeStamp();
 
-    var values = [newData['Heap Size'], newData['Mem Size']];
+    var values = [newData['Heap Size'].toFixed(2), newData['Mem Size'].toFixed(2)];
     this.heapDataChart.addData(values, timeStamp);
 
     if (this.heapDataChart.datasets[0].points.length > 10) {
