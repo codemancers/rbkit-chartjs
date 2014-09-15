@@ -2,11 +2,27 @@
 // namespace
 var Rbkit = {
   // heap data which will be displayed as line chart
+  liveObjectsData: {
+    labels: ['-', '-'],
+    datasets: [
+        {
+            label: 'Live Objects',
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [0, 0]
+        }
+    ]
+  },
+
   heapData: {
     labels: ['-', '-'],
     datasets: [
         {
-            label: 'Heap Objects',
+            label: 'RES Mem Size',
             fillColor: "rgba(220,220,220,0.2)",
             strokeColor: "rgba(220,220,220,1)",
             pointColor: "rgba(220,220,220,1)",
@@ -43,6 +59,7 @@ var Rbkit = {
   ],
 
   // chart canvas contexts, maybe we can remove these
+  liveObjectsCtx      : undefined,
   heapDataCtx         : undefined,
   gcCtx               : undefined,
   youngGenerationCtx  : undefined,
@@ -50,6 +67,7 @@ var Rbkit = {
   oldGenerationCtx    : undefined,
 
   // actual charts
+  liveObjectsChart      : undefined,
   heapDataChart         : undefined,
   gcChart               : undefined,
   youngGenerationChart  : undefined,
@@ -162,11 +180,25 @@ var Rbkit = {
     }
   },
 
+  updateLiveObjectsChart: function (newData) {
+    var date = new Date();
+    var timeStamp = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+
+    var values = [newData['Heap Objects']];
+    this.liveObjectsChart.addData(values, timeStamp);
+
+    if (this.liveObjectsChart.datasets[0].points.length > 10) {
+      this.liveObjectsChart.removeData();
+    }
+
+    this.liveObjectsChart.render();
+  },
+
   updateHeapChart: function (newData) {
     var date = new Date();
     var timeStamp = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 
-    var values = [newData['Heap Objects'], newData['Heap Size']];
+    var values = [newData['Heap Size'], newData['Mem Size']];
     this.heapDataChart.addData(values, timeStamp);
 
     if (this.heapDataChart.datasets[0].points.length > 10) {
@@ -177,6 +209,12 @@ var Rbkit = {
   },
 
   init: function () {
+    // charts for live objects data
+    var liveObjectsOptions = { showTooltips: false, animation: false };
+    this.liveObjectsCtx   = document.getElementById('live-objects-chart').getContext('2d');
+    this.liveObjectsChart = new Chart(this.liveObjectsCtx)
+      .Line(this.liveObjectsData, liveObjectsOptions);
+
     // charts for heap data
     var heapChartOptions = { showTooltips: false, animation: false };
     this.heapDataCtx   = document.getElementById('heap-chart').getContext('2d');
@@ -227,6 +265,7 @@ var Rbkit = {
       this.updateGcStats(data.payload);
       break;
     case "object_stats":
+      this.updateLiveObjectsChart(data.payload);
       this.updateHeapChart(data.payload);
       break;
     }
