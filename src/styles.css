@@ -32,3 +32,23 @@
 .generation-charts canvas {
   display: inline-block;
 }
+
+
+.line-legend {
+  list-style-type: none;
+  margin: 0px;
+}
+
+.line-legend li {
+  display: inline-block;
+  margin: auto 10px;
+}
+
+.line-legend span {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  margin: auto 5px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}

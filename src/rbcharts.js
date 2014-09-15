@@ -208,21 +208,39 @@ var Rbkit = {
     this.heapDataChart.render();
   },
 
+  // helper method, which converts a string to node
+  stringToNode: function (string) {
+    var div = document.createElement('div');
+    div.innerHTML = string;
+    return div.childNodes[0];
+  },
+
+  // helper to generate and insert legend
+  insertLegend: function (chart, canvasDiv) {
+    var chartLegend = chart.generateLegend();
+    var node = this.stringToNode(chartLegend);
+    canvasDiv.parentNode.appendChild(node);
+  },
+
   init: function () {
     // charts for live objects data
-    var liveObjectsOptions = { showTooltips: false, animation: false };
-    this.liveObjectsCtx   = document.getElementById('live-objects-chart').getContext('2d');
+    var liveObjectsOptions = { animation: false };
+    var liveObjectsCanvas = document.getElementById('live-objects-chart');
+    this.liveObjectsCtx   = liveObjectsCanvas.getContext('2d');
     this.liveObjectsChart = new Chart(this.liveObjectsCtx)
       .Line(this.liveObjectsData, liveObjectsOptions);
+    this.insertLegend(this.liveObjectsChart, liveObjectsCanvas);
 
     // charts for heap data
-    var heapChartOptions = { showTooltips: false, animation: false };
-    this.heapDataCtx   = document.getElementById('heap-chart').getContext('2d');
+    var heapChartOptions = { animation: false };
+    var heapDataCanvas = document.getElementById('heap-chart');
+    this.heapDataCtx   = heapDataCanvas.getContext('2d');
     this.heapDataChart = new Chart(this.heapDataCtx)
       .Line(this.heapData, heapChartOptions);
+    this.insertLegend(this.heapDataChart, heapDataCanvas);
 
     // charts for gc stats.
-    var gcChartOptions = { showTooltips: false, animation: false };
+    var gcChartOptions = { animation: false };
     this.gcCtx    = document.getElementById('gc-chart').getContext('2d');
     this.gcChart  = new Chart(this.gcCtx)
       .Bar(this.gcData, gcChartOptions);
@@ -235,7 +253,7 @@ var Rbkit = {
     this.oldGenerationCtx    = document
       .getElementById('generation-three').getContext('2d');
 
-    var polarChartOptions = { showTooltips: false, animation: false };
+    var polarChartOptions = { animation: false };
     this.youngGenerationChart  = new Chart(this.youngGenerationCtx)
       .PolarArea([], polarChartOptions);
     this.secondGenerationChart = new Chart(this.secondGenerationCtx)
