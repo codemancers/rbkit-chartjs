@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
 body {
   margin: 0;
   background-color: #e5e5e5;
@@ -39,6 +45,7 @@ body {
 .table td {
   color: #333;
   font-size: 12px;
+  padding: 3px 0 2px 0;
   border-bottom: 1px dotted #ddd;
 }
 
@@ -52,11 +59,9 @@ body {
   display: none;
 }
 
-
 .generation-charts canvas {
   display: inline-block;
 }
-
 
 .line-legend {
   margin: 0;
