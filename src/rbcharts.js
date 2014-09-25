@@ -255,7 +255,8 @@ var Rbkit = {
     this.insertLegend(this.heapDataChart, heapDataCanvas);
 
     // charts for gc stats.
-    var gcChartOptions = { animation: false };
+    var gcChartsTooltip = "<%if (label){%><%=label%>: <%}%><%= value %> ms";
+    var gcChartOptions = { animation: false, tooltipTemplate: gcChartsTooltip };
     var gcCtx     = document.getElementById('gc-chart').getContext('2d');
     this.gcChart  = new Chart(gcCtx).Bar(this.gcData, gcChartOptions);
 
