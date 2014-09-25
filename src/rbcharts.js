@@ -237,7 +237,7 @@ var Rbkit = {
 
   init: function () {
     // charts for live objects data
-    var objectsTooltip = "<%if (label){%>t:<%=label%>: <%}%><%= value %>k";
+    var objectsTooltip = "<%= value %>k";
     var liveObjectsOptions = { animation: false, tooltipTemplate: objectsTooltip };
     var liveObjectsCanvas = document.getElementById('live-objects-chart');
     var liveObjectsCtx    = liveObjectsCanvas.getContext('2d');
@@ -246,7 +246,7 @@ var Rbkit = {
     this.insertLegend(this.liveObjectsChart, liveObjectsCanvas);
 
     // charts for heap data
-    var heapSizesTooltip = "<%= value %> mb";
+    var heapSizesTooltip = "<%= value %> MB";
     var heapChartOptions = { animation: false, multiTooltipTemplate: heapSizesTooltip };
     var heapDataCanvas = document.getElementById('heap-chart');
     var heapDataCtx    = heapDataCanvas.getContext('2d');
