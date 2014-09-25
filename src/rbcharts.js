@@ -211,7 +211,7 @@ var Rbkit = {
   updateHeapChart: function (newData) {
     timeStamp = this.getTimeStamp();
 
-    var values = [newData['Heap Size'].toFixed(2), newData['Mem Size'].toFixed(2)];
+    var values = [newData['Mem Size'].toFixed(2), newData['Heap Size'].toFixed(2)];
     this.heapDataChart.addData(values, timeStamp);
 
     if (this.heapDataChart.datasets[0].points.length > 10) {
