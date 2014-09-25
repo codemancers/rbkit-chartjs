@@ -177,7 +177,7 @@ var Rbkit = {
 
         // append created node to table
         document.getElementById('gc-stats-table')
-          .firstElementChild
+          .lastElementChild     // this is tbody
           .appendChild(trNode);
       }
     }
