@@ -246,7 +246,8 @@ var Rbkit = {
     this.insertLegend(this.liveObjectsChart, liveObjectsCanvas);
 
     // charts for heap data
-    var heapChartOptions = { animation: false };
+    var heapSizesTooltip = "<%= value %> mb";
+    var heapChartOptions = { animation: false, multiTooltipTemplate: heapSizesTooltip };
     var heapDataCanvas = document.getElementById('heap-chart');
     var heapDataCtx    = heapDataCanvas.getContext('2d');
     this.heapDataChart = new Chart(heapDataCtx)
