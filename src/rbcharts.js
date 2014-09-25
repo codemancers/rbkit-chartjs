@@ -237,7 +237,8 @@ var Rbkit = {
 
   init: function () {
     // charts for live objects data
-    var liveObjectsOptions = { animation: false };
+    var objectsTooltip = "<%if (label){%>t:<%=label%>: <%}%><%= value %>k";
+    var liveObjectsOptions = { animation: false, tooltipTemplate: objectsTooltip };
     var liveObjectsCanvas = document.getElementById('live-objects-chart');
     var liveObjectsCtx    = liveObjectsCanvas.getContext('2d');
     this.liveObjectsChart = new Chart(liveObjectsCtx)
