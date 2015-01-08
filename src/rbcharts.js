@@ -301,6 +301,17 @@ var Rbkit = {
       this.updateHeapChart(data.payload);
       break;
     }
+  },
+
+  destroy: function() {
+    this.liveObjectsChart.destroy();
+    this.heapDataChart.destroy();
+    this.gcChart.destroy();
+    this.youngGenerationChart.destroy();
+    this.secondGenerationChart.destroy();
+    this.oldGenerationChart.destroy();
+
+    this.init();
   }
 };
 
