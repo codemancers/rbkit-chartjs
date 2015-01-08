@@ -127,7 +127,6 @@ var reset = function() {
   clearTimeout(gcStatsTimeout);
 
   Rbkit.reset();
-  Rbkit.init();
 
   setTimeout(function() {
     heapCharts();
