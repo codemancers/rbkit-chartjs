@@ -303,7 +303,7 @@ var Rbkit = {
     }
   },
 
-  destroy: function() {
+  reset: function() {
     this.liveObjectsChart.destroy();
     this.heapDataChart.destroy();
     this.gcChart.destroy();
