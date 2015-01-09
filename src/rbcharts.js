@@ -316,7 +316,56 @@ var Rbkit = {
     this.youngGenerationChart.destroy();
     this.secondGenerationChart.destroy();
     this.oldGenerationChart.destroy();
+
+    this.liveObjectsData = {
+      labels: ['-', '-'],
+      datasets: [
+      {
+        label: 'Live Objects',
+        fillColor: "rgba(220,220,220,0.2)",
+        strokeColor: "rgba(220,220,220,1)",
+        pointColor: "rgba(220,220,220,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(220,220,220,1)",
+        data: [0, 0]
+      }
+      ]
+    }
+
+    this.heapData = {
+      labels: ['-', '-'],
+      datasets: [
+      {
+        label: 'RES Mem Size',
+        fillColor: "rgba(220,220,220,0.2)",
+        strokeColor: "rgba(220,220,220,1)",
+        pointColor: "rgba(220,220,220,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(220,220,220,1)",
+        data: [0, 0]
+      },
+      {
+        label: 'Heap Size',
+        fillColor: "rgba(151,187,205,0.2)",
+        strokeColor: "rgba(151,187,205,1)",
+        pointColor: "rgba(151,187,205,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(151,187,205,1)",
+        data: [0, 0]
+      }
+      ]
+    }
+
+    this.gcData = {
+      datasets: [{label: 'GC Data', data: [0]}],
+      labels: [0]
+    }
+
     this.updateGcStats({});
+    Rbkit.init();
   }
 };
 
