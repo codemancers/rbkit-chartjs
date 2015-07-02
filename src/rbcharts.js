@@ -2,6 +2,7 @@
 // namespace
 var Rbkit = {
   PointsLength: 15,
+  GcPointsLength: 6,
   // heap data which will be displayed as line chart
   liveObjectsData: {
     labels: ['-', '-'],
@@ -98,7 +99,7 @@ var Rbkit = {
     this.gcStartTime = undefined;
 
     this.gcChart.addData([gcDurationInMs], ++this.gcCounter);
-    if (this.gcChart.datasets[0].bars.length > this.PointsLength) {
+    if (this.gcChart.datasets[0].bars.length > this.GcPointsLength) {
       this.gcChart.removeData();
     }
     this.gcChart.update();
@@ -277,7 +278,12 @@ var Rbkit = {
 
     // charts for gc stats.
     var gcChartsTooltip = "<%if (label){%><%=label%>: <%}%><%= value %> ms";
-    var gcChartOptions = { animation: false, tooltipTemplate: gcChartsTooltip };
+    var gcChartOptions = {
+      animation: false,
+      tooltipTemplate: gcChartsTooltip,
+      scaleBeginAtZero: false,
+      scaleShowVerticalLines: false
+    };
     var gcCtx     = document.getElementById('gc-chart').getContext('2d');
     this.gcChart  = new Chart(gcCtx).Bar(this.gcData, gcChartOptions);
 
