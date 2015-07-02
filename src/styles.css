@@ -12,23 +12,23 @@ body {
 
 .container {
   margin: 0px auto;
-  max-width: 760px;
+  max-width: 860px;
 }
 
 .chart, .stats {
-  margin: 5px;
-  width: 750px;
+  margin: 2px;
+  width: 854px;
   padding: 15px;
   border-radius: 2px;
   background-color: #fff;
   display: inline-block;
   box-sizing: border-box;
   border-bottom: 1px solid #c7c7c7;
-  height: 169px
+  height: 150px
 }
 
 .stats {
-  width: 400px;
+  width: 510px;
   float: right;
   height: 320px;
 }

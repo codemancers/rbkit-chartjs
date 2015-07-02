@@ -1,7 +1,7 @@
 // top level rbkit which encapsulates all rbkit code. This also acts as
 // namespace
 var Rbkit = {
-  PointsLength: 15,
+  PointsLength: 20,
   GcPointsLength: 6,
   // heap data which will be displayed as line chart
   liveObjectsData: {
@@ -249,9 +249,11 @@ var Rbkit = {
       animation: false,
       tooltipTemplate: objectsTooltip,
       bezierCurve: false,
-      pointDot: false,
       datasetStrokeWidth: 1,
-      scaleShowVerticalLines: false
+      pointDotStrokeWidth : 0,
+      scaleShowVerticalLines: false,
+      scaleFontSize: 9,
+      scaleFontFamily: "'Lucida Sans Unicode', 'Lucida Grande', 'Arial', sans-serif",
     };
 
     var liveObjectsCanvas = document.getElementById('live-objects-chart');
@@ -266,9 +268,12 @@ var Rbkit = {
       animation: false,
       multiTooltipTemplate: heapSizesTooltip,
       bezierCurve: false,
-      pointDot: false,
+      pointDotStrokeWidth : 0,
       datasetStrokeWidth: 1,
-      scaleShowVerticalLines: false
+      scaleShowVerticalLines: false,
+      scaleFontSize: 9,
+      scaleFontFamily: "'Lucida Sans Unicode', 'Lucida Grande', 'Arial', sans-serif",
+
     };
     var heapDataCanvas = document.getElementById('heap-chart');
     var heapDataCtx    = heapDataCanvas.getContext('2d');
@@ -279,6 +284,8 @@ var Rbkit = {
     // charts for gc stats.
     var gcChartsTooltip = "<%if (label){%><%=label%>: <%}%><%= value %> ms";
     var gcChartOptions = {
+      scaleFontFamily: "'Lucida Sans Unicode', 'Lucida Grande', 'Arial', sans-serif",
+      scaleFontSize: 9,
       animation: false,
       tooltipTemplate: gcChartsTooltip,
       scaleBeginAtZero: false,
