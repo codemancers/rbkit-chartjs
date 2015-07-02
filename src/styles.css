@@ -16,15 +16,15 @@ body {
 }
 
 .chart, .stats {
-  margin: 10px;
-  width: 740px;
+  margin: 5px;
+  width: 750px;
   padding: 15px;
   border-radius: 2px;
   background-color: #fff;
   display: inline-block;
   box-sizing: border-box;
   border-bottom: 1px solid #c7c7c7;
-  height: 220px
+  height: 169px
 }
 
 .stats {
@@ -34,7 +34,7 @@ body {
 }
 
 .gc-chart {
-  width: 320px;
+  width: 340px;
   height: 320px;
 }
 
@@ -47,7 +47,7 @@ body {
 .chart hr, .stats hr {
   border: none;
   margin: 10px;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #fffff;
 }
 
 .stats .table {
@@ -81,14 +81,14 @@ body {
 }
 
 .line-legend {
-  margin: -197px 0;
+  margin: -145px 0;
   padding: 0;
   text-align: right;
   list-style-type: none;
 }
 
 .line-legend li {
-  font-size: 13px;
+  font-size: 11px;
   margin: auto 10px;
   display: inline-block;
 }
