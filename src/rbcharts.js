@@ -9,10 +9,9 @@ var Rbkit = {
     datasets: [
         {
             label: 'Live Objects',
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
+            fillColor: "rgba(215,25,28,1)",
+            strokeColor: "rgba(215,25,28,0)",
+            pointColor: "rgba(0,0,0,1)",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
             data: [0, 0]
@@ -25,20 +24,18 @@ var Rbkit = {
     datasets: [
         {
             label: 'RES Mem Size',
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
+            fillColor: "rgba(253,174,97,0.5)",
+            strokeColor: "rgba(253,174,97,1)",
+            pointColor: "rgba(0,0,0,1)",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
             data: [0, 0]
         },
         {
             label: 'Heap Size',
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
+            fillColor: "rgba(44, 123, 182, 0.5)",
+            strokeColor: "rgba(44, 123, 182, 1)",
+            pointColor: "rgba(0,0,0,1)",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
             data: [0, 0]
@@ -48,7 +45,14 @@ var Rbkit = {
 
   // gc data, which will be used in populating in gc graph
   gcData: {
-    datasets: [{label: 'GC Data', data: [0]}],
+    datasets: [
+      {
+        label: 'GC Data',
+        data: [0],
+        fillColor: "rgba(44, 123, 182, 1)",
+        strokeColor: "rgba(44, 123, 182, 1)",
+      }
+    ],
     labels: [0]
   },
 
@@ -249,11 +253,12 @@ var Rbkit = {
       animation: false,
       tooltipTemplate: objectsTooltip,
       bezierCurve: false,
-      datasetStrokeWidth: 1,
       pointDotStrokeWidth : 0,
+      pointDotRadius: 2,
       scaleShowVerticalLines: false,
       scaleFontSize: 9,
       scaleFontFamily: "'Lucida Sans Unicode', 'Lucida Grande', 'Arial', sans-serif",
+      datasetStrokeWidth: 1
     };
 
     var liveObjectsCanvas = document.getElementById('live-objects-chart');
@@ -269,11 +274,11 @@ var Rbkit = {
       multiTooltipTemplate: heapSizesTooltip,
       bezierCurve: false,
       pointDotStrokeWidth : 0,
-      datasetStrokeWidth: 1,
+      pointDotRadius: 2,
       scaleShowVerticalLines: false,
       scaleFontSize: 9,
       scaleFontFamily: "'Lucida Sans Unicode', 'Lucida Grande', 'Arial', sans-serif",
-
+      datasetStrokeWidth: 1
     };
     var heapDataCanvas = document.getElementById('heap-chart');
     var heapDataCtx    = heapDataCanvas.getContext('2d');
@@ -289,7 +294,8 @@ var Rbkit = {
       animation: false,
       tooltipTemplate: gcChartsTooltip,
       scaleBeginAtZero: false,
-      scaleShowVerticalLines: false
+      scaleShowVerticalLines: false,
+      barShowStroke: false
     };
     var gcCtx     = document.getElementById('gc-chart').getContext('2d');
     this.gcChart  = new Chart(gcCtx).Bar(this.gcData, gcChartOptions);
