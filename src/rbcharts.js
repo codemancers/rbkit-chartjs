@@ -1,6 +1,7 @@
 // top level rbkit which encapsulates all rbkit code. This also acts as
 // namespace
 var Rbkit = {
+  PointsLength: 15,
   // heap data which will be displayed as line chart
   liveObjectsData: {
     labels: ['-', '-'],
@@ -97,7 +98,7 @@ var Rbkit = {
     this.gcStartTime = undefined;
 
     this.gcChart.addData([gcDurationInMs], ++this.gcCounter);
-    if (this.gcChart.datasets[0].bars.length > 10) {
+    if (this.gcChart.datasets[0].bars.length > this.PointsLength) {
       this.gcChart.removeData();
     }
     this.gcChart.update();
@@ -192,7 +193,7 @@ var Rbkit = {
     var values = [newData['Heap Objects'].toFixed(2)];
     this.liveObjectsChart.addData(values, timeStamp);
 
-    if (this.liveObjectsChart.datasets[0].points.length > 10) {
+    if (this.liveObjectsChart.datasets[0].points.length > this.PointsLength) {
       this.liveObjectsChart.removeData();
     }
 
@@ -211,13 +212,14 @@ var Rbkit = {
     return timeStamp;
   },
 
+
   updateHeapChart: function (newData) {
     timeStamp = this.getTimeStamp();
 
     var values = [newData['Mem Size'].toFixed(2), newData['Heap Size'].toFixed(2)];
     this.heapDataChart.addData(values, timeStamp);
 
-    if (this.heapDataChart.datasets[0].points.length > 10) {
+    if (this.heapDataChart.datasets[0].points.length > this.PointsLength) {
       this.heapDataChart.removeData();
     }
 
@@ -242,7 +244,15 @@ var Rbkit = {
   init: function () {
     // charts for live objects data
     var objectsTooltip = "<%= value %>k";
-    var liveObjectsOptions = { animation: false, tooltipTemplate: objectsTooltip };
+    var liveObjectsOptions = {
+      animation: false,
+      tooltipTemplate: objectsTooltip,
+      bezierCurve: false,
+      pointDot: false,
+      datasetStrokeWidth: 1,
+      scaleShowVerticalLines: false
+    };
+
     var liveObjectsCanvas = document.getElementById('live-objects-chart');
     var liveObjectsCtx    = liveObjectsCanvas.getContext('2d');
     this.liveObjectsChart = new Chart(liveObjectsCtx)
@@ -251,7 +261,14 @@ var Rbkit = {
 
     // charts for heap data
     var heapSizesTooltip = "<%= value %> MB";
-    var heapChartOptions = { animation: false, multiTooltipTemplate: heapSizesTooltip };
+    var heapChartOptions = {
+      animation: false,
+      multiTooltipTemplate: heapSizesTooltip,
+      bezierCurve: false,
+      pointDot: false,
+      datasetStrokeWidth: 1,
+      scaleShowVerticalLines: false
+    };
     var heapDataCanvas = document.getElementById('heap-chart');
     var heapDataCtx    = heapDataCanvas.getContext('2d');
     this.heapDataChart = new Chart(heapDataCtx)
