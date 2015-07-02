@@ -1,7 +1,7 @@
 // top level rbkit which encapsulates all rbkit code. This also acts as
 // namespace
 var Rbkit = {
-  PointsLength: 20,
+  PointsLength: 25,
   GcPointsLength: 6,
   // heap data which will be displayed as line chart
   liveObjectsData: {
@@ -210,11 +210,19 @@ var Rbkit = {
         minutes = date.getMinutes(),
         seconds = date.getSeconds();
 
-    var timeStamp = (minutes < 10 ? '0' + minutes : minutes ) +
-                    ':' +
-                    (seconds < 10 ? '0' + seconds : seconds );
 
-    return timeStamp;
+    /* Return a proper timestamp only every 5 seconds. This will de-clutter the
+     * X-axis. Since Charts.js always requires an X-label, this bad hack is
+     * necessary.
+     */
+    if (seconds % 5 === 0) {
+      var timeStamp = (minutes < 10 ? '0' + minutes : minutes ) +
+                      ':' +
+                      (seconds < 10 ? '0' + seconds : seconds );
+      return timeStamp;
+    } else {
+      return "";
+    }
   },
 
 
