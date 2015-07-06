@@ -10,7 +10,7 @@ var Rbkit = {
         {
             label: 'Live Objects',
             fillColor: "rgba(215,25,28,1)",
-            strokeColor: "rgba(215,25,28,0)",
+            strokeColor: "rgba(215,25,28,1)",
             pointColor: "rgba(0,0,0,1)",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
